@@ -1,27 +1,59 @@
 import { useState } from "react";
 import "./App.css";
 import Header from "./components/Header";
-import { Tabs, Tab, Card, CardBody, CardHeader } from "@nextui-org/react";
+import { Tabs, Tab, Card, CardBody } from "@nextui-org/react";
 import PersonalInfo from "./components/PersonalInfo";
+import Education from "./components/Education";
 import WorkExperience from "./components/WorkExperience";
+import CVPreview from "./components/CVPreview";
+
 function App() {
-  let tabs = [
+  const [personalInfo, setPersonalInfo] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    location: "",
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setPersonalInfo((prevInfo) => ({
+      ...prevInfo,
+      [name]: value,
+    }));
+  };
+
+  const tabs = [
     {
       id: "personalInfo",
       label: "Personal Info",
-      content: <PersonalInfo />,
+      content: (
+        <PersonalInfo
+          personalInfo={personalInfo}
+          onInputChange={handleInputChange}
+        />
+      ),
     },
     {
-      id: "music",
-      label: "Music",
+      id: "education",
+      label: "Education",
+      content: <Education />,
+    },
+    {
+      id: "workExperience",
+      label: "Work Experience",
       content: <WorkExperience />,
     },
   ];
+
   return (
     <>
       <Header />
-      <div>
+      <div className="main-content">
         <div className="left">
+          <CVPreview personalInfo={personalInfo} />
+        </div>
+        <div className="right">
           <div className="flex w-full flex-col">
             <Tabs aria-label="Dynamic tabs" items={tabs}>
               {(item) => (
@@ -34,7 +66,6 @@ function App() {
             </Tabs>
           </div>
         </div>
-        <div className="right"></div>
       </div>
     </>
   );
