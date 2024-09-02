@@ -15,12 +15,44 @@ function App() {
     location: "",
   });
 
+  const [workExperiences, setWorkExperiences] = useState([]);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setPersonalInfo((prevInfo) => ({
       ...prevInfo,
       [name]: value,
     }));
+  };
+
+  const addWorkExperience = () => {
+    setWorkExperiences([
+      ...workExperiences,
+      {
+        id: Date.now(), // Unique ID for each entry
+        company: "",
+        title: "",
+        location: "",
+        responsibilities: "",
+      },
+    ]);
+  };
+
+  const handleWorkExperienceChange = (id) => (e) => {
+    const { name, value } = e.target;
+    setWorkExperiences(
+      workExperiences.map((workExperience) =>
+        workExperience.id === id
+          ? { ...workExperience, [name]: value }
+          : workExperience
+      )
+    );
+  };
+
+  const handleWorkExperienceDelete = (id) => () => {
+    setWorkExperiences(
+      workExperiences.filter((workExperience) => workExperience.id !== id)
+    );
   };
 
   const tabs = [
@@ -42,7 +74,14 @@ function App() {
     {
       id: "workExperience",
       label: "Work Experience",
-      content: <WorkExperience />,
+      content: (
+        <WorkExperience
+          workExperiences={workExperiences}
+          onAdd={addWorkExperience}
+          onChange={handleWorkExperienceChange}
+          onDelete={handleWorkExperienceDelete}
+        />
+      ),
     },
   ];
 
@@ -51,7 +90,10 @@ function App() {
       <Header />
       <div className="main-content">
         <div className="left">
-          <CVPreview personalInfo={personalInfo} />
+          <CVPreview
+            personalInfo={personalInfo}
+            workExperiences={workExperiences}
+          />
         </div>
         <div className="right">
           <div className="flex w-full flex-col">
