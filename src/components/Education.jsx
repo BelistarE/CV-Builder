@@ -45,7 +45,7 @@ const Education = () => {
         {educations.map((education) => (
           <Card
             key={education.id}
-            className="flex flex-col gap-3 p-3"
+            className="input-sect flex flex-col gap-3 p-3"
             shadow="sm"
           >
             <Input

@@ -58,9 +58,7 @@ function App() {
             <Tabs aria-label="Dynamic tabs" items={tabs}>
               {(item) => (
                 <Tab key={item.id} title={item.label}>
-                  <Card>
-                    <CardBody>{item.content}</CardBody>
-                  </Card>
+                  {item.content}
                 </Tab>
               )}
             </Tabs>

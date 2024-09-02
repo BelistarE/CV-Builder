@@ -39,6 +39,8 @@ const CVPreview = ({ personalInfo }) => {
                 {personalInfo.location}
               </p>
             </div>
+            <p className="section">Education</p>
+            <Divider />
           </div>
         </Card>
       </div>
