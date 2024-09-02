@@ -17,6 +17,8 @@ function App() {
 
   const [workExperiences, setWorkExperiences] = useState([]);
 
+  const [educations, setEducations] = useState([]);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setPersonalInfo((prevInfo) => ({
@@ -37,6 +39,18 @@ function App() {
       },
     ]);
   };
+  const addEducation = () => {
+    setEducations([
+      ...educations,
+      {
+        id: Date.now(), // Unique ID for each entry
+        institution: "",
+        degree: "",
+        location: "",
+        gradYear: "",
+      },
+    ]);
+  };
 
   const handleWorkExperienceChange = (id) => (e) => {
     const { name, value } = e.target;
@@ -49,12 +63,23 @@ function App() {
     );
   };
 
+  const handleEducationChange = (id) => (e) => {
+    const { name, value } = e.target;
+    setEducations(
+      educations.map((education) =>
+        education.id === id ? { ...education, [name]: value } : education
+      )
+    );
+  };
   const handleWorkExperienceDelete = (id) => () => {
     setWorkExperiences(
       workExperiences.filter((workExperience) => workExperience.id !== id)
     );
   };
 
+  const handleEducationDelete = (id) => () => {
+    setEducations(educations.filter((education) => education.id !== id));
+  };
   const tabs = [
     {
       id: "personalInfo",
@@ -69,7 +94,14 @@ function App() {
     {
       id: "education",
       label: "Education",
-      content: <Education />,
+      content: (
+        <Education
+          educations={educations}
+          onAdd={addEducation}
+          onChange={handleEducationChange}
+          onDelete={handleEducationDelete}
+        />
+      ),
     },
     {
       id: "workExperience",
@@ -92,6 +124,7 @@ function App() {
         <div className="left">
           <CVPreview
             personalInfo={personalInfo}
+            educations={educations}
             workExperiences={workExperiences}
           />
         </div>

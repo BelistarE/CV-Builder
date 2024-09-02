@@ -10,7 +10,7 @@ import { Divider } from "@nextui-org/divider";
 import { useRef } from "react";
 import { Button } from "@nextui-org/button";
 
-const CVPreview = ({ personalInfo, workExperiences }) => {
+const CVPreview = ({ personalInfo, educations, workExperiences }) => {
   return (
     <div>
       <div className="header-preview">
@@ -39,13 +39,25 @@ const CVPreview = ({ personalInfo, workExperiences }) => {
                 {personalInfo.location}
               </p>
             </div>
+            <p className="section">Education</p>
+            <Divider />
+            {educations.map((education) => (
+              <div key={education.id} className="education-item">
+                <h5>{education.institution}</h5>
+              </div>
+            ))}
             <p className="section">Work Experience</p>
             <Divider />
             {workExperiences.map((workExperience) => (
               <div key={workExperience.id} className="work-experience-item">
-                <h5>{workExperience.company}</h5>
-                <p>{workExperience.title}</p>
-                <p>{workExperience.location}</p>
+                <div className="upper">
+                  <div className="company-title">
+                    <h5>{workExperience.company}</h5>
+                    <p>{workExperience.title}</p>
+                  </div>
+                  <p>{workExperience.location}</p>
+                </div>
+
                 <p>{workExperience.responsibilities}</p>
               </div>
             ))}

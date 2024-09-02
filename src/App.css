@@ -86,3 +86,7 @@ input:-webkit-autofill::first-line {
 .input-sect {
   margin-bottom: 10px;
 }
+.upper {
+  display: flex;
+  justify-content: space-between;
+}
