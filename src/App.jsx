@@ -35,6 +35,8 @@ function App() {
         company: "",
         title: "",
         location: "",
+        from: "",
+        to: "",
         responsibilities: "",
       },
     ]);

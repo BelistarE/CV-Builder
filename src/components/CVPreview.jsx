@@ -43,7 +43,14 @@ const CVPreview = ({ personalInfo, educations, workExperiences }) => {
             <Divider />
             {educations.map((education) => (
               <div key={education.id} className="education-item">
-                <h5>{education.institution}</h5>
+                <div className="upper">
+                  <div className="institution-degree">
+                    <h5>{education.institution}</h5>
+                    <p>{education.degree}</p>
+                    <p className="location">{education.location}</p>
+                  </div>
+                  <p className="date">{education.gradyear}</p>
+                </div>
               </div>
             ))}
             <p className="section">Work Experience</p>
@@ -52,10 +59,10 @@ const CVPreview = ({ personalInfo, educations, workExperiences }) => {
               <div key={workExperience.id} className="work-experience-item">
                 <div className="upper">
                   <div className="company-title">
-                    <h5>{workExperience.company}</h5>
+                    <h5>{workExperience.company},</h5>
                     <p>{workExperience.title}</p>
+                    <p className="location">{workExperience.location}</p>
                   </div>
-                  <p>{workExperience.location}</p>
                 </div>
 
                 <p>{workExperience.responsibilities}</p>

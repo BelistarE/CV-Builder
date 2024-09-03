@@ -82,6 +82,7 @@ input:-webkit-autofill::first-line {
 }
 .section {
   padding-top: 2.5%;
+  font-weight: bold;
 }
 .input-sect {
   margin-bottom: 10px;
@@ -89,4 +90,13 @@ input:-webkit-autofill::first-line {
 .upper {
   display: flex;
   justify-content: space-between;
+}
+.company-title {
+  display: flex;
+}
+.company-title > h5 {
+  font-weight: bold;
+}
+.location {
+  font-style: italic;
 }
