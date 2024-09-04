@@ -6,6 +6,8 @@ import PersonalInfo from "./components/PersonalInfo";
 import Education from "./components/Education";
 import WorkExperience from "./components/WorkExperience";
 import CVPreview from "./components/CVPreview";
+import dayjs from "dayjs";
+import "dayjs/locale/en-gb";
 
 function App() {
   const [personalInfo, setPersonalInfo] = useState({
@@ -35,8 +37,8 @@ function App() {
         company: "",
         title: "",
         location: "",
-        from: "",
-        to: "",
+        from: dayjs(),
+        to: dayjs(),
         responsibilities: "",
       },
     ]);

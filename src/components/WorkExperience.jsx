@@ -10,6 +10,10 @@ import dayjs from "dayjs";
 import "dayjs/locale/en-gb";
 
 const WorkExperience = ({ workExperiences, onAdd, onChange, onDelete }) => {
+  const handleDateChange = (id, name) => (newValue) => {
+    // Ensure newValue is a Dayjs object, then call onChange with formatted value
+    onChange(id)({ target: { name, value: newValue } });
+  };
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <Card className="p-4" shadow="none">
@@ -44,7 +48,12 @@ const WorkExperience = ({ workExperiences, onAdd, onChange, onDelete }) => {
                 value={workExperience.location}
                 onChange={onChange(workExperience.id)}
               />
-              <DatePicker />
+              <DatePicker
+                label="Start"
+                value={workExperience.from} // Ensure this is a Dayjs object
+                onChange={handleDateChange(workExperience.id, "from")}
+                format="MM/YYYY"
+              />
               <Textarea
                 label="Responsibilities"
                 name="responsibilities"

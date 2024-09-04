@@ -63,6 +63,7 @@ const CVPreview = ({ personalInfo, educations, workExperiences }) => {
                     <p>{workExperience.title}</p>
                     <p className="location">{workExperience.location}</p>
                   </div>
+                  <p>{workExperience.from.format("MMM YYYY")}</p>
                 </div>
 
                 <p>{workExperience.responsibilities}</p>
