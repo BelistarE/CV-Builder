@@ -3,17 +3,36 @@ import { Card, CardBody, CardHeader } from "@nextui-org/react";
 import { Button } from "@nextui-org/react";
 import { Input, Textarea } from "@nextui-org/react";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { TextField } from "@mui/material";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
 import "dayjs/locale/en-gb";
+import { styled } from "@mui/material/styles";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 const WorkExperience = ({ workExperiences, onAdd, onChange, onDelete }) => {
   const handleDateChange = (id, name) => (newValue) => {
     // Ensure newValue is a Dayjs object, then call onChange with formatted value
     onChange(id)({ target: { name, value: newValue } });
   };
+  const newTheme = (theme) =>
+    createTheme({
+      ...theme,
+      components: {
+        MuiTextField: {
+          styleOverrides: {
+            root: {
+              color: "#f8bbd0",
+              borderRadius: "10px",
+              border: "none",
+              backgroundColor: "#f4f4f5",
+            },
+          },
+        },
+      },
+    });
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <Card className="p-4" shadow="none">
@@ -48,12 +67,21 @@ const WorkExperience = ({ workExperiences, onAdd, onChange, onDelete }) => {
                 value={workExperience.location}
                 onChange={onChange(workExperience.id)}
               />
-              <DatePicker
-                label="Start"
-                value={workExperience.from} // Ensure this is a Dayjs object
-                onChange={handleDateChange(workExperience.id, "from")}
-                format="MM/YYYY"
-              />
+              <ThemeProvider theme={newTheme}>
+                <DatePicker
+                  label="Start"
+                  value={workExperience.from}
+                  onChange={handleDateChange(workExperience.id, "from")}
+                  format="MM/YYYY"
+                />
+
+                <DatePicker
+                  label="End"
+                  value={workExperience.to}
+                  onChange={handleDateChange(workExperience.id, "to")}
+                  format="MM/YYYY"
+                />
+              </ThemeProvider>
               <Textarea
                 label="Responsibilities"
                 name="responsibilities"

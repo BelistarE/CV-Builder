@@ -101,3 +101,17 @@ input:-webkit-autofill::first-line {
   font-style: italic;
   padding-left: 5px;
 }
+
+.dates {
+  display: flex;
+}
+.myDatePicker fieldset.MuiOutlinedInput-notchedOutline {
+  border-color: green;
+}
+
+.myDatePicker .Mui-focused fieldset.MuiOutlinedInput-notchedOutline {
+  border-color: red;
+}
+.MuiPaper-root {
+  background-color: #eaea87;
+}
