@@ -8,8 +8,41 @@ import WorkExperience from "./components/WorkExperience";
 import CVPreview from "./components/CVPreview";
 import dayjs from "dayjs";
 import "dayjs/locale/en-gb";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 function App() {
+  const newTheme = createTheme({
+    components: {
+      MuiTextField: {
+        styleOverrides: {
+          root: {
+            borderRadius: "14px",
+            backgroundColor: "#f4f4f5", // Default background color
+          },
+        },
+      },
+      MuiOutlinedInput: {
+        styleOverrides: {
+          root: {
+            // Remove the border
+            "& .MuiOutlinedInput-notchedOutline": {
+              border: "none",
+            },
+            // Slightly darker background color on hover
+            "&:hover:not(.Mui-disabled)": {
+              backgroundColor: "#e4e4e7",
+              borderRadius: "14px",
+            },
+            // Keep the same background color when focused (active)
+            "&.Mui-focused": {
+              backgroundColor: "#f4f4f5", // Same background when focused
+            },
+          },
+        },
+      },
+    },
+  });
+
   const [personalInfo, setPersonalInfo] = useState({
     name: "",
     email: "",
@@ -37,12 +70,26 @@ function App() {
         company: "",
         title: "",
         location: "",
-        from: dayjs(),
-        to: dayjs(),
+        from: null,
+        to: null,
         responsibilities: "",
       },
     ]);
   };
+  const handleDateChange = (id, field) => (newValue) => {
+    console.log(`New value for ${field}:`, newValue); // Log the new date value
+    setWorkExperiences((prevExperiences) =>
+      prevExperiences.map((workExperience) =>
+        workExperience.id === id
+          ? {
+              ...workExperience,
+              [field]: newValue ? dayjs(newValue) : null, // Store Dayjs object
+            }
+          : workExperience
+      )
+    );
+  };
+
   const addEducation = () => {
     setEducations([
       ...educations,
@@ -116,6 +163,7 @@ function App() {
           onAdd={addWorkExperience}
           onChange={handleWorkExperienceChange}
           onDelete={handleWorkExperienceDelete}
+          onDateChange={handleDateChange}
         />
       ),
     },
@@ -123,27 +171,29 @@ function App() {
 
   return (
     <>
-      <Header />
-      <div className="main-content">
-        <div className="left">
-          <CVPreview
-            personalInfo={personalInfo}
-            educations={educations}
-            workExperiences={workExperiences}
-          />
-        </div>
-        <div className="right">
-          <div className="flex w-full flex-col">
-            <Tabs aria-label="Dynamic tabs" items={tabs}>
-              {(item) => (
-                <Tab key={item.id} title={item.label}>
-                  {item.content}
-                </Tab>
-              )}
-            </Tabs>
+      <ThemeProvider theme={newTheme}>
+        <Header />
+        <div className="main-content">
+          <div className="left">
+            <CVPreview
+              personalInfo={personalInfo}
+              educations={educations}
+              workExperiences={workExperiences}
+            />
+          </div>
+          <div className="right">
+            <div className="flex w-full flex-col">
+              <Tabs aria-label="Dynamic tabs" items={tabs}>
+                {(item) => (
+                  <Tab key={item.id} title={item.label}>
+                    {item.content}
+                  </Tab>
+                )}
+              </Tabs>
+            </div>
           </div>
         </div>
-      </div>
+      </ThemeProvider>
     </>
   );
 }

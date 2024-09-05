@@ -9,7 +9,8 @@ import {
 import { Divider } from "@nextui-org/divider";
 import { useRef } from "react";
 import { Button } from "@nextui-org/button";
-
+import dayjs from "dayjs";
+import "dayjs/locale/en-gb";
 const CVPreview = ({ personalInfo, educations, workExperiences }) => {
   return (
     <div>
@@ -64,8 +65,12 @@ const CVPreview = ({ personalInfo, educations, workExperiences }) => {
                     <p className="location">{workExperience.location}</p>
                   </div>
                   <div className="dates">
-                    <p>{workExperience.from.format("MMM YYYY")}</p>
-                    <p>-{workExperience.to.format("MMM YYYY")}</p>
+                    {workExperience.from && (
+                      <p>{workExperience.from.format("MMM YYYY")}</p>
+                    )}
+                    {workExperience.to && (
+                      <p>-{workExperience.to.format("MMM YYYY")}</p>
+                    )}
                   </div>
                 </div>
 
