@@ -6,19 +6,38 @@ import {
   DownloadIcon,
   FileIcon,
 } from "@radix-ui/react-icons";
+import { Button } from "@nextui-org/react";
 import { Divider } from "@nextui-org/divider";
 import { useRef } from "react";
-import { Button } from "@nextui-org/button";
 import dayjs from "dayjs";
 import "dayjs/locale/en-gb";
+import html2pdf from "html2pdf.js";
 const CVPreview = ({ personalInfo, educations, workExperiences }) => {
+  const handleDownloadPDF = () => {
+    const element = document.getElementById("cv-preview-content"); // Target the div to convert
+
+    // Call html2pdf to convert the content into PDF
+    html2pdf()
+      .from(element)
+      .set({
+        margin: 1,
+        filename: `${personalInfo.name}_CV.pdf`,
+        image: { type: "jpeg", quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
+      })
+      .save();
+  };
   return (
     <div>
       <div className="header-preview">
-        <h3>CV Preview</h3>
+        <h2 className="title-desc">CV Preview</h2>
+        <Button type="button" color="primary" onClick={handleDownloadPDF}>
+          Download PDF
+        </Button>
       </div>
       <div className="gap">
-        <Card className="cv-preview">
+        <Card className="cv-preview" id="cv-preview-content">
           <div>
             <h5 className="cv-name">
               <strong>{personalInfo.name}</strong>
