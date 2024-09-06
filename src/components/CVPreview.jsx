@@ -69,7 +69,9 @@ const CVPreview = ({ personalInfo, educations, workExperiences }) => {
                     <p>{education.degree}</p>
                     <p className="location">{education.location}</p>
                   </div>
-                  <p className="date">{education.gradyear}</p>
+                  {education.gradYear && (
+                    <p>{education.gradYear.format("MMM YYYY")}</p>
+                  )}
                 </div>
               </div>
             ))}

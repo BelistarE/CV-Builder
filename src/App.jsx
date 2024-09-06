@@ -98,7 +98,7 @@ function App() {
         institution: "",
         degree: "",
         location: "",
-        gradYear: "",
+        gradYear: null,
       },
     ]);
   };
@@ -151,6 +151,7 @@ function App() {
           onAdd={addEducation}
           onChange={handleEducationChange}
           onDelete={handleEducationDelete}
+          onDateChange={handleDateChange}
         />
       ),
     },
