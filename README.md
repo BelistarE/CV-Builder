@@ -1,8 +1,10 @@
-# React + Vite
+# CV Builder
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+CB builder app inspired by [OdeeyuhLog](https://github.com/OdeeyuhLog)
+This app takes user information and builds a resume in real-time. Users hace the
+option to downlod the file once complete. Built using React, MUI, NextUI, RadixUI, and html2pdf
 
-Currently, two official plugins are available:
+# TODO
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1. add a "current" option for job and "in progress" for education
+2. add options for non-us phone numbers

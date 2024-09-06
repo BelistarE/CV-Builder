@@ -76,18 +76,24 @@ function App() {
       },
     ]);
   };
-  const handleDateChange = (id, field) => (newValue) => {
-    console.log(`New value for ${field}:`, newValue); // Log the new date value
-    setWorkExperiences((prevExperiences) =>
-      prevExperiences.map((workExperience) =>
-        workExperience.id === id
+  const handleDateChange = (type, id, field) => (newValue) => {
+    console.log(`New value for ${field} in ${type}:`, newValue); // Log the new date value
+
+    const updateState = (prevItems) =>
+      prevItems.map((item) =>
+        item.id === id
           ? {
-              ...workExperience,
+              ...item,
               [field]: newValue ? dayjs(newValue) : null, // Store Dayjs object
             }
-          : workExperience
-      )
-    );
+          : item
+      );
+
+    if (type === "workExperience") {
+      setWorkExperiences((prevExperiences) => updateState(prevExperiences));
+    } else if (type === "education") {
+      setEducations((prevEducations) => updateState(prevEducations));
+    }
   };
 
   const addEducation = () => {

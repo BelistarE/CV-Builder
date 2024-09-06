@@ -57,18 +57,22 @@ const WorkExperience = ({
               <DatePicker
                 label="Start"
                 value={workExperience.from || null}
-                onChange={(newValue) =>
-                  onDateChange(workExperience.id, "from")(newValue)
-                }
+                onChange={onDateChange(
+                  "workExperience",
+                  workExperience.id,
+                  "from"
+                )}
                 format="MM/YYYY"
               />
 
               <DatePicker
                 label="End"
                 value={workExperience.to || null}
-                onChange={(newValue) =>
-                  onDateChange(workExperience.id, "to")(newValue)
-                }
+                onChange={onDateChange(
+                  "workExperience",
+                  workExperience.id,
+                  "from"
+                )}
                 format="MM/YYYY"
               />
 

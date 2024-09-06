@@ -43,9 +43,7 @@ const Education = ({ educations, onAdd, onChange, onDelete, onDateChange }) => {
               <DatePicker
                 label="Month/Year completed"
                 value={education.gradYear || null}
-                onChange={(newValue) =>
-                  onDateChange(education.id, "from")(newValue)
-                }
+                onChange={onDateChange("education", education.id, "gradYear")}
                 format="MM/YYYY"
               />
               <Button
