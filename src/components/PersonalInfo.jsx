@@ -3,7 +3,7 @@ import { Card, CardBody, CardHeader } from "@nextui-org/card";
 
 const PersonalInfo = ({ personalInfo = {}, onInputChange }) => {
   return (
-    <Card className="p-4" isBlurred shadow="none">
+    <Card className="p-4 card-center" isBlurred shadow="none">
       <CardHeader>
         <h2 className="font-semibold text-sm">Personal Information</h2>
       </CardHeader>

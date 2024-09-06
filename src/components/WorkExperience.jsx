@@ -21,7 +21,7 @@ const WorkExperience = ({
 }) => {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <Card className="p-4" shadow="none">
+      <Card className="p-4 card-center" shadow="none">
         <CardHeader>
           <h2 className="text-sm font-semibold">Work Experience</h2>
         </CardHeader>

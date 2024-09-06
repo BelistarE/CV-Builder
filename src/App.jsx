@@ -5,10 +5,12 @@ import { Tabs, Tab, Card, CardBody } from "@nextui-org/react";
 import PersonalInfo from "./components/PersonalInfo";
 import Education from "./components/Education";
 import WorkExperience from "./components/WorkExperience";
+import Skills from "./components/Skills";
 import CVPreview from "./components/CVPreview";
 import dayjs from "dayjs";
 import "dayjs/locale/en-gb";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { id } from "date-fns/locale";
 
 function App() {
   const newTheme = createTheme({
@@ -17,7 +19,7 @@ function App() {
         styleOverrides: {
           root: {
             borderRadius: "14px",
-            backgroundColor: "#f4f4f5", // Default background color
+            backgroundColor: "#f4f4f5",
           },
         },
       },
@@ -28,14 +30,14 @@ function App() {
             "& .MuiOutlinedInput-notchedOutline": {
               border: "none",
             },
-            // Slightly darker background color on hover
+
             "&:hover:not(.Mui-disabled)": {
               backgroundColor: "#e4e4e7",
               borderRadius: "14px",
             },
-            // Keep the same background color when focused (active)
+
             "&.Mui-focused": {
-              backgroundColor: "#f4f4f5", // Same background when focused
+              backgroundColor: "#f4f4f5",
             },
           },
         },
@@ -54,6 +56,8 @@ function App() {
 
   const [educations, setEducations] = useState([]);
 
+  const [skills, setSkills] = useState([]);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setPersonalInfo((prevInfo) => ({
@@ -66,7 +70,7 @@ function App() {
     setWorkExperiences([
       ...workExperiences,
       {
-        id: Date.now(), // Unique ID for each entry
+        id: Date.now(),
         company: "",
         title: "",
         location: "",
@@ -77,14 +81,14 @@ function App() {
     ]);
   };
   const handleDateChange = (type, id, field) => (newValue) => {
-    console.log(`New value for ${field} in ${type}:`, newValue); // Log the new date value
+    console.log(`New value for ${field} in ${type}:`, newValue);
 
     const updateState = (prevItems) =>
       prevItems.map((item) =>
         item.id === id
           ? {
               ...item,
-              [field]: newValue ? dayjs(newValue) : null, // Store Dayjs object
+              [field]: newValue ? dayjs(newValue) : null,
             }
           : item
       );
@@ -100,11 +104,21 @@ function App() {
     setEducations([
       ...educations,
       {
-        id: Date.now(), // Unique ID for each entry
+        id: Date.now(),
         institution: "",
         degree: "",
         location: "",
         gradYear: null,
+      },
+    ]);
+  };
+
+  const addSkill = () => {
+    setSkills([
+      ...skills,
+      {
+        id: Date.now(),
+        skill: "",
       },
     ]);
   };
@@ -128,6 +142,15 @@ function App() {
       )
     );
   };
+
+  const handleSkillsChange = (id) => (e) => {
+    const { name, value } = e.target;
+    setSkills(
+      skills.map((skill) =>
+        skill.id === id ? { ...skill, [name]: value } : skill
+      )
+    );
+  };
   const handleWorkExperienceDelete = (id) => () => {
     setWorkExperiences(
       workExperiences.filter((workExperience) => workExperience.id !== id)
@@ -136,6 +159,10 @@ function App() {
 
   const handleEducationDelete = (id) => () => {
     setEducations(educations.filter((education) => education.id !== id));
+  };
+
+  const handleSkillDelete = (id) => () => {
+    setSkills(skills.filter((skill) => skill.id !== id));
   };
   const tabs = [
     {
@@ -174,6 +201,18 @@ function App() {
         />
       ),
     },
+    {
+      id: "skills",
+      label: "Skills",
+      content: (
+        <Skills
+          skills={skills}
+          onAdd={addSkill}
+          onChange={handleSkillsChange}
+          onDelete={handleSkillDelete}
+        />
+      ),
+    },
   ];
 
   return (
@@ -186,13 +225,14 @@ function App() {
               personalInfo={personalInfo}
               educations={educations}
               workExperiences={workExperiences}
+              skills={skills}
             />
           </div>
           <div className="right">
-            <div className="flex w-full flex-col">
+            <div className="flex w-full flex-col center-me">
               <Tabs aria-label="Dynamic tabs" items={tabs}>
                 {(item) => (
-                  <Tab key={item.id} title={item.label}>
+                  <Tab className="tab-center" key={item.id} title={item.label}>
                     {item.content}
                   </Tab>
                 )}

@@ -9,7 +9,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 const Education = ({ educations, onAdd, onChange, onDelete, onDateChange }) => {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <Card className="p-4" shadow="none">
+      <Card className="p-4 card-center" shadow="none">
         <CardHeader>
           <h2 className="text-sm font-semibold">Education</h2>
         </CardHeader>

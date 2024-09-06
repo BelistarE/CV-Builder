@@ -12,7 +12,7 @@ import { useRef } from "react";
 import dayjs from "dayjs";
 import "dayjs/locale/en-gb";
 import html2pdf from "html2pdf.js";
-const CVPreview = ({ personalInfo, educations, workExperiences }) => {
+const CVPreview = ({ personalInfo, educations, workExperiences, skills }) => {
   const handleDownloadPDF = () => {
     const element = document.getElementById("cv-preview-content"); // Target the div to convert
 
@@ -65,9 +65,12 @@ const CVPreview = ({ personalInfo, educations, workExperiences }) => {
               <div key={education.id} className="education-item">
                 <div className="upper">
                   <div className="institution-degree">
-                    <h5>{education.institution}</h5>
+                    <div className="upper">
+                      <h5>{education.institution}</h5>
+                      <p className="location">{education.location}</p>
+                    </div>
+
                     <p>{education.degree}</p>
-                    <p className="location">{education.location}</p>
                   </div>
                   {education.gradYear && (
                     <p>{education.gradYear.format("MMM YYYY")}</p>
@@ -82,7 +85,7 @@ const CVPreview = ({ personalInfo, educations, workExperiences }) => {
                 <div className="upper">
                   <div className="company-title">
                     <h5>{workExperience.company},</h5>
-                    <p>{workExperience.title}</p>
+                    <p className="title-experience"> {workExperience.title}</p>
                     <p className="location">{workExperience.location}</p>
                   </div>
                   <div className="dates">
@@ -98,6 +101,15 @@ const CVPreview = ({ personalInfo, educations, workExperiences }) => {
                 <p>{workExperience.responsibilities}</p>
               </div>
             ))}
+            <p className="section">Skills</p>
+            <Divider />
+            {skills &&
+              skills.length > 0 &&
+              skills.map((skill) => (
+                <div key={skill.id} className="skill-item">
+                  <p>• {skill.skill}</p>
+                </div>
+              ))}
           </div>
         </Card>
       </div>
